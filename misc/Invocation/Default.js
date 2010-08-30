@@ -1,17 +1,27 @@
-Class('JooseX.RPC.Invocation.JSONRPC', {
+Class('JooseX.RPC.Invocation.Default', {
     
-    use     : 'JSON2',
+    isa     : 'JooseX.RPC.Invocation',
     
-    
-    trait   : 'JooseX.CPS',
+    use     : [
+        'JSON2',
+        
+        Joose.is_NodeJS ? 'HTTP.Request.Provider.NodeJS' : 'HTTP.Request.Provider.XHR'
+    ],
     
 
     has : {
         
-        source          : null,
-        args            : null,
+        config          : null,
         
-        remoteMethod    : null
+        requestClass    : Joose.I.FutureClass(Joose.is_NodeJS ? 'HTTP.Request.Provider.NodeJS' : 'HTTP.Request.Provider.XHR')
+    },
+    
+    
+    after : {
+        
+        initialize : function () {
+            this.config = this.method.config
+        }
     },
     
         

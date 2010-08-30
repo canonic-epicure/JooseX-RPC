@@ -1,21 +1,8 @@
-Role('MyApp.RPC', {
-    
-    use     : [ 'JooseX.RPC', 'JooseX.RPC.Invocation.JSONRPC' ],
+Class('MyApp.RPC.Invocation', {
     
     
-body : function () {
-    
-    this.meta.extend({
-        
-        does : JooseX.RPC({
-            
-            invocationClass : JooseX.RPC.Invocation.JSONRPC
-            
-        })
-    })
-    
-}})
 
+})
 
 
 Role('MyApp.RPC', {
