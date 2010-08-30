@@ -1,6 +1,6 @@
 StartTest(function(t) {
     
-    t.plan(3)
+    t.plan(4)
     
     
     var async0 = t.beginAsync()
@@ -36,7 +36,7 @@ StartTest(function(t) {
                 sum : {
                     
                     url     : '/8080/some/url.json',
-                    verb    : 'POST',
+                    verb    : 'PUT',
                     
                     pre : function (p1, p2) {
                         if (arguments.length != 2) throw "Incorrect arguments"
@@ -52,25 +52,36 @@ StartTest(function(t) {
                     }
                 },
                 
-                remoteMethod : {}
+                remoteMethod : {
+                    prefix : '/8080/'
+                }
             }
         
         })
         
-        var async1      = t.beginAsync()
-        
-        
         var instance = new TestClass()
         
         
+        
+        var async1      = t.beginAsync()
+        
         instance.sum(1, 10).andThen(function (res) {
             
-            
-            
-            t.ok(res == 11, 'Correct result from remote method')
+            t.ok(res == 11, 'Correct result from remote method #1')
             
             t.endAsync(async1)
         })
+        
+        
+        var async2      = t.beginAsync()
+        
+        instance.remoteMethod().andThen(function (res) {
+            
+            t.ok(res.foo == 'bar', 'Correct result from remote method #2')
+            
+            t.endAsync(async2)
+        })
+        
         
         
         
