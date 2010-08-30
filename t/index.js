@@ -34,6 +34,6 @@ Harness.configure({
 
 
 Harness.start(
-    '010_sanity.t.js'
+    '010_sanity.t.js',
+    '020_basic.t.js'
 )
-
